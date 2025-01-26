@@ -1,0 +1,71 @@
+//! This file defines the opcodes and pseudo-instructions in the LC-3 assembly instruction set.
+//!
+//! All opcodes are wrapped in the `OPCODE` macro, allowing us to generate specific code for each
+//! opcode by redefining the meaning of `OPCODE`. Similarly, we wrap the trap service routines in
+//! the `TRAP_ROUTINE` macro. It is typically used together with `OPCODE`, enabling us to handle
+//! them with the same logic.
+//!
+//! Similarly, all pseudo-instructions are wrapped in the `PSEUDO` macro.
+
+#ifndef OPCODE
+#define OPCODE(name)
+#endif
+
+#ifndef TRAP_ROUTINE
+#define TRAP_ROUTINE(name) OPCODE(name)
+#endif
+
+#ifndef PSEUDO
+#define PSEUDO(name)
+#endif
+
+// We need to close macro `IN` and `OUT`, since they are defined in `minwindef.h` on Windows.
+#ifdef IN
+#undef IN
+#endif
+
+#ifdef OUT
+#undef OUT
+#endif
+
+OPCODE(ADD)
+OPCODE(AND)
+OPCODE(BR)
+OPCODE(BRn)
+OPCODE(BRz)
+OPCODE(BRp)
+OPCODE(BRzp)
+OPCODE(BRnp)
+OPCODE(BRnz)
+OPCODE(BRnzp)
+OPCODE(JMP)
+OPCODE(JSR)
+OPCODE(JSRR)
+OPCODE(LD)
+OPCODE(LDI)
+OPCODE(LDR)
+OPCODE(LEA)
+OPCODE(NOT)
+OPCODE(RET)
+OPCODE(RTI)
+OPCODE(ST)
+OPCODE(STI)
+OPCODE(STR)
+OPCODE(TRAP)
+
+TRAP_ROUTINE(GETC)
+TRAP_ROUTINE(OUT)
+TRAP_ROUTINE(PUTS)
+TRAP_ROUTINE(IN)
+TRAP_ROUTINE(PUTSP)
+TRAP_ROUTINE(HALT)
+
+PSEUDO(ORIG)
+PSEUDO(FILL)
+PSEUDO(BLKW)
+PSEUDO(STRINGZ)
+PSEUDO(END)
+
+#undef PSEUDO
+#undef TRAP_ROUTINE
+#undef OPCODE
